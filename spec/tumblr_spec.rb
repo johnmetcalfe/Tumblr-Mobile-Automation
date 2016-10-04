@@ -30,5 +30,22 @@ describe "Tumblr Tests" do
       end
 
     end
+
+    it "Attempting Login with valid email and invalid password" do
+
+      button('SIGN IN').click
+      find_element(class: 'android.widget.EditText').type "john.metcalfe@skybettingandgaming.com"
+      button('NEXT').click
+      find_elements(class: 'android.widget.MultiAutoCompleteTextView').last.type "invalid"
+      button('SIGN IN').click
+      begin
+        text('Incorrect email address or password. Please try again.').displayed?
+
+      rescue
+        raise InvalidTextNotFound
+      end
+
+    end
+
   end
 end

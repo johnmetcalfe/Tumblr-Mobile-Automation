@@ -3,3 +3,9 @@ class PasswordFieldFound < StandardError
     super(message)
   end
 end
+
+class InvalidTextNotFound < StandardError
+  def initialize(message="Invalid Email or Password text not found!")
+    super(message)
+  end
+end
