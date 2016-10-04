@@ -31,7 +31,7 @@ describe "Tumblr Tests" do
 
     it "doesnt allow the user to login without entering a password" do
       button("SIGN IN").click
-      textfield("email").send_keys("craig.pearce@skybettingandgaming.com")
+      textfield("email").send_keys @email
       button("Next").click
       expect(buttons[0].enabled?).to eq false
       #binding.pry
@@ -48,5 +48,8 @@ describe "Tumblr Tests" do
 
   context "Logging out" do
     it 'manages to log out successfully' do
+
+
+    end
   end
 end
