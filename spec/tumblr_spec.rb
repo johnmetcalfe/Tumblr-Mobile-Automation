@@ -1,4 +1,5 @@
 require 'spec_helper.rb'
+require 'pry'
 
 describe "Tumblr Tests" do
   before :all do
@@ -19,10 +20,15 @@ describe "Tumblr Tests" do
   after :all do
     # quit the driver after the tests are done
     driver_quit
-
   end
 
   context "Logging in" do
+    it "outputs a error message when nil values is entered for username" do
+      button("SIGN IN").click
+      button("Next").click
+      expect(textfields).not_to include 'password'
+    end
+
     it "should allow a valid user to login" do
       find_element(id: 'login_button').click
       find_element(id: 'email').type @email
@@ -42,14 +48,20 @@ describe "Tumblr Tests" do
         raise PasswordFieldFound
       rescue Selenium::WebDriver::Error::NoSuchElementError
         # Don't do anyting AKA Pass
-      end
+    end
 
+    it "doesnt allow the user to login without entering a password" do
+      button("SIGN IN").click
+      textfield("email").send_keys @email
+      button("Next").click
+      expect(buttons[0].enabled?).to eq false
+      #binding.pry
     end
 
     it "Attempting Login with valid email and invalid password" do
 
       button('SIGN IN').click
-      find_element(class: 'android.widget.EditText').type @username
+      find_element(class: 'android.widget.EditText').type @email
       button('NEXT').click
       find_elements(class: 'android.widget.MultiAutoCompleteTextView').last.type "invalid"
       button('SIGN IN').click
@@ -58,7 +70,7 @@ describe "Tumblr Tests" do
 
       rescue
         raise InvalidTextNotFound
-      end
+    end
 
   end
 end
