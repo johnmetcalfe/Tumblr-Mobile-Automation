@@ -17,16 +17,16 @@ describe "Tumblr Tests" do
 
   after :all do
     # quit the driver after the tests are done
-    driver_quit
+    # driver_quit
   end
 
   context "Logging in" do
     it "should allow a valid user to login" do
-      find_element(id: 'login_button').click
-      find_element(id: 'email').type @email
-      find_element(id: 'signup_button').click
-      find_element(id: 'password').type "#{@password}\n"
-      expect(find_element(id: 'topnav_dashboard_button').displayed?).to eq true
+      login
+    end
+
+    it "should allow a logged in user to post a text post" do
+      login
     end
   end
 end
