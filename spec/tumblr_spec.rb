@@ -33,6 +33,6 @@ describe "Tumblr Tests" do
   end
 
   context "Logging out" do
-    
+    it 'manages to log out successfully'
   end
 end
