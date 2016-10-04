@@ -6,6 +6,8 @@ describe "Tumblr Tests" do
     @email = "seitgrads@mailinator.com"
     @username = "seitgrads16"
     @password = "t3stacc0unt16"
+    @title = "A test title"
+    @body = "A test body"
   end
 
   before :each do
@@ -74,6 +76,15 @@ describe "Tumblr Tests" do
   context "Posting" do
     it "should allow a logged in user to post a text post" do
       login
+      find_element(id: 'composer_fab').click
+      find_element(id: 'compose_post_text').click
+      find_element(id: 'title').type @title
+      find_element(id: 'body').type @body
+      find_element(id: 'action_button_wrapper').click
+      find_element(id: 'topnav_account_button').click
+      find_element(id: 'list_item_blog_container').click
+      text(@title)
+      text(@body)
     end
   end
 
