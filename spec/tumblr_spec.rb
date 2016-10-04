@@ -2,6 +2,7 @@ require 'spec_helper.rb'
 require 'pry'
 
 describe "Tumblr Tests" do
+
   before :all do
     @email = "seitgrads@mailinator.com"
     @username = "seitgrads16"
@@ -54,12 +55,19 @@ describe "Tumblr Tests" do
       #binding.pry
     end
 
-    it "should allow a valid user to login" do
-      find_element(id: 'login_button').click
-      find_element(id: 'email').type @email
-      find_element(id: 'signup_button').click
-      find_element(id: 'password').type "#{@password}\n"
-      expect(wait_true{find_element(id: 'topnav_dashboard_button')}.displayed?).to eq true
+    it "Attempting Login with valid email and invalid password", hello: true do
+
+      button('SIGN IN').click
+      find_element(class: 'android.widget.EditText').type @email
+      button('NEXT').click
+      find_elements(class: 'android.widget.MultiAutoCompleteTextView').last.type "invalid"
+      button('SIGN IN').click
+      begin
+        text('Incorrect email address or password. Please try again.').displayed?
+
+      rescue
+        raise InvalidTextNotFound
+      end
     end
   end
 
@@ -82,20 +90,7 @@ describe "Tumblr Tests" do
 
     end
 
-    it "Attempting Login with valid email and invalid password" do
 
-      button('SIGN IN').click
-      find_element(class: 'android.widget.EditText').type @email
-      button('NEXT').click
-      find_elements(class: 'android.widget.MultiAutoCompleteTextView').last.type "invalid"
-      button('SIGN IN').click
-      begin
-        text('Incorrect email address or password. Please try again.').displayed?
-
-      rescue
-        raise InvalidTextNotFound
-      end
-    end
 
   end
 
@@ -103,6 +98,44 @@ describe "Tumblr Tests" do
     it "should allow a logged in user to post a text post" do
       login
     end
+
+    it "Should allow the user to reblog a post", reblog: true do
+
+      login
+      find_element(id: 'topnav_explore_button_img_active').click
+      text('Search Tumblr').click
+      find_element(id: 'searchable_action_bar').type "boldlyspookylady\n"
+      find_element(id: 'cancel_button').click
+      find_element(id: 'list_item_blog_avatar').click
+      find_elements(class: 'android.widget.ImageButton')[1].click
+      find_element(id: 'action_button').click
+      find_elements(class: 'android.widget.ImageButton')[3].click
+      find_elements(class: 'android.widget.ImageButton')[0].click
+      find_element(id: 'topnav_account_button').click
+      find_element(id: 'list_item_blog_only').click
+      text("Hello World!")
+
+    end
+
+    it "Allow the user to like a post", like: true do
+
+      login
+      find_element(id: 'topnav_explore_button_img_active').click
+      text('Search Tumblr').click
+      find_element(id: 'searchable_action_bar').type "boldlyspookylady\n"
+      find_element(id: 'cancel_button').click
+      find_element(id: 'list_item_blog_avatar').click
+      find_elements(class: 'android.widget.ImageButton')[2].click
+      find_elements(class: 'android.widget.ImageButton')[3].click
+      find_elements(class: 'android.widget.ImageButton')[0].click
+      find_element(id: 'topnav_account_button').click
+      find_element(id: 'account_title_text').click
+      text("Hello World!")
+      find_elements(class: 'android.widget.ImageButton')[2].click
+
+
+    end
+
   end
 
 end
