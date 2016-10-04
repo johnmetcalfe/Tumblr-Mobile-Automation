@@ -42,14 +42,26 @@ describe "Tumblr Tests" do
       find_element(id: 'email').type @email
       find_element(id: 'signup_button').click
       find_element(id: 'password').type "#{@password}\n"
-      expect(find_element(id: 'topnav_dashboard_button').displayed?).to eq true
+      expect(wait_true{find_element(id: 'topnav_dashboard_button')}.displayed?).to eq true
     end
   end
 
   context "Logging out" do
-    it 'manages to log out successfully' do
-
-
+    it 'manages to log out successfully', focus: true do
+      button("SIGN IN").click
+      textfield("email").send_keys @email
+      button("Next").click
+      find_elements(class: 'android.widget.MultiAutoCompleteTextView').last.type @password
+      find_element(class: 'android.widget.Button' ).click
+      wait_true{find_element(id: 'topnav_dashboard_button')}
+      find_element(id: 'topnav_account_button').click
+      find_element(class: 'android.widget.TextView').click
+      text('Settings').click
+      sleep (2)
+      swipe start_x: 0, start_y: 0, end_x: 0, end_y: 100, duration: 200
+      wait_true{text('Sign out')}.click
+      text('Yes').click
+      expect(wait_true{button("SIGN IN")}.displayed?).to eq true
     end
   end
 end
