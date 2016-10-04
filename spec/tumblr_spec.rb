@@ -9,6 +9,7 @@ describe "Tumblr Tests" do
     @password = "t3stacc0unt16"
     @title = "A test title"
     @body = "A test body"
+    @search = "boldlyspookylady\n"
   end
 
   before :each do
@@ -109,7 +110,7 @@ describe "Tumblr Tests" do
       login
       find_element(id: 'topnav_explore_button_img_active').click
       text('Search Tumblr').click
-      find_element(id: 'searchable_action_bar').type "boldlyspookylady\n"
+      find_element(id: 'searchable_action_bar').type @search
       find_element(id: 'cancel_button').click
       wait_true{find_element(id: 'list_item_blog_avatar')}.click
       find_elements(class: 'android.widget.ImageButton')[1].click
