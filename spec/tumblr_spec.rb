@@ -31,11 +31,11 @@ describe "Tumblr Tests" do
     end
 
     it "should allow a valid user to login" do
-      find_element(id: 'login_button').click
-      find_element(id: 'email').type @email
-      find_element(id: 'signup_button').click
-      find_element(id: 'password').type "#{@password}\n"
-      expect(find_element(id: 'topnav_dashboard_button').displayed?).to eq true
+      login
+    end
+
+    it "should allow a logged in user to post a text post" do
+      login
     end
 
     it "Attempting Login with invalid Email" do
@@ -45,7 +45,6 @@ describe "Tumblr Tests" do
       button('NEXT').click
       begin
         find_element(class: 'android.widget.MultiAutoCompleteTextView')
-
         raise PasswordFieldFound
       rescue Selenium::WebDriver::Error::NoSuchElementError
         # Don't do anyting AKA Pass
@@ -81,7 +80,6 @@ describe "Tumblr Tests" do
         find_element(id: 'signup_button').click
         find_element(id: 'password').type "#{@password}\n"
         find_elements(id: 'topnav_dashboard_button_img_active')
-
     end
 
   end
