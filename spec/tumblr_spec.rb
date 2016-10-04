@@ -17,25 +17,10 @@ describe "Tumblr Tests" do
 
   context "Logging in" do
     it "Attempting Login with invalid Email" do
-      # text("Add alarm").click
-      # textfields.first.clear
-      # textfields.first.type "4"
-      # textfields[1].clear
-      # textfields[1].type "55"
-      # textfields.last.clear
-      # textfields.last.type "P"
-      # find_element(id: 'button1').click
-      # text('Vocal Message').click
-      # find_element(id: 'idtext').type "Time to get that ass up!"
-      # hide_keyboard
-      # find_element(id: 'save').click
-      # find_element(id: 'alarm_save').click
 
       button('SIGN IN').click
       find_element(class: 'android.widget.EditText').type "hello.com"
       button('NEXT').click
-      # exists { button('android.widget.MultiAutoCompleteTextView') } ? RaiseException : false
-      binding.pry
       begin
         find_element(class: 'android.widget.MultiAutoCompleteTextView')
 
