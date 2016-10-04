@@ -9,6 +9,11 @@ describe "Tumblr Tests" do
     @password = "t3stacc0unt16"
     @title = "A test title"
     @body = "A test body"
+
+    def scroll_click identifier
+      scroll_to identifier
+      find(identifier).click
+    end
   end
 
   before :each do
@@ -76,7 +81,7 @@ describe "Tumblr Tests" do
   context "Logging out" do
     it 'manages to log out successfully', focus: true do
       button("SIGN IN").click
-      textfield("email").send_keys @email
+      textfield("email").type @email
       button("Next").click
       find_elements(class: 'android.widget.MultiAutoCompleteTextView').last.type @password
       find_element(class: 'android.widget.Button' ).click
@@ -84,27 +89,24 @@ describe "Tumblr Tests" do
       find_element(id: 'topnav_account_button').click
       find_element(class: 'android.widget.TextView').click
       text('Settings').click
-      sleep (2)
-      swipe start_x: 0, start_y: 0, end_x: 0, end_y: 100, duration: 200
-      wait_true{text('Sign out')}.click
+      scroll_to "Sign out"
+      find("Sign out").click
       text('Yes').click
       expect(wait_true{button("SIGN IN")}.displayed?).to eq true
 
     end
 
-
-
   end
 
   context "Posting" do
-    it "should allow a logged in user to post a text post" do
+    it "should allow a logged in user to post a text post", post: true do
       login
       find_element(id: 'composer_fab').click
       find_element(id: 'compose_post_text').click
-      find_element(id: 'title').type @title
-      find_element(id: 'body').type @body
-      find_element(id: 'action_button_wrapper').click
-      find_element(id: 'topnav_account_button').click
+      find('Title').type @title
+      find('Your text here').type @body
+      find('Post').click
+      find('ACCOUNT').click
       find_element(id: 'list_item_blog_container').click
       text(@title)
       text(@body)
