@@ -1,9 +1,6 @@
 require 'spec_helper.rb'
-<<<<<<< HEAD
-=======
 require 'pry'
 
->>>>>>> Dev
 describe "Tumblr Tests" do
 
   before :all do
@@ -52,6 +49,7 @@ describe "Tumblr Tests" do
         raise PasswordFieldFound
       rescue Selenium::WebDriver::Error::NoSuchElementError
         # Don't do anyting AKA Pass
+      end
     end
 
     it "doesnt allow the user to login without entering a password" do
@@ -62,7 +60,7 @@ describe "Tumblr Tests" do
       #binding.pry
     end
 
-    it "Attempting Login with valid email and invalid password" do
+    it "Attempting Login with valid email and invalid password", hello: true do
 
       button('SIGN IN').click
       find_element(class: 'android.widget.EditText').type @email
@@ -74,18 +72,17 @@ describe "Tumblr Tests" do
 
       rescue
         raise InvalidTextNotFound
+      end
     end
 
-  end
-
-  context "Logging in" do
-    it "should allow a valid user to login" do
-      find_element(id: 'login_button').click
-      find_element(id: 'email').type @email
-      find_element(id: 'signup_button').click
-      find_element(id: 'password').type "#{@password}\n"
-      expect(find_element(id: 'topnav_dashboard_button').displayed?).to eq true
+    it "should allow a valid user to login", focus: true do
+        find_element(id: 'login_button').click
+        find_element(id: 'email').type @email
+        find_element(id: 'signup_button').click
+        find_element(id: 'password').type "#{@password}\n"
+        find_elements(id: 'topnav_dashboard_button_img_active')
 
     end
+
   end
 end
