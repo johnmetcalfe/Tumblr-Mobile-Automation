@@ -70,20 +70,31 @@ describe "Tumblr Tests" do
       end
     end
 
-    it "should allow a valid user to login", focus: true do
-        find_element(id: 'login_button').click
-        find_element(id: 'email').type @email
-        find_element(id: 'signup_button').click
-        find_element(id: 'password').type "#{@password}\n"
-        find_elements(id: 'topnav_dashboard_button_img_active')
-    end
-
   end
 
   context "Posting" do
     it "should allow a logged in user to post a text post" do
       login
     end
+
+    it "Should allow the user to reblog a post", reblog: true do
+
+      login
+      find_element(id: 'topnav_explore_button_img_active').click
+      text('Search Tumblr').click
+      find_element(id: 'searchable_action_bar').type "boldlyspookylady\n"
+      find_element(id: 'cancel_button').click
+      find_element(id: 'list_item_blog_avatar').click
+      find_elements(class: 'android.widget.ImageButton')[1].click
+      find_element(id: 'action_button').click
+      find_elements(class: 'android.widget.ImageButton')[3].click
+      find_elements(class: 'android.widget.ImageButton')[0].click
+      find_element(id: 'topnav_account_button').click
+      find_element(id: 'list_item_blog_only').click
+      text("Hello World!")
+
+    end
+
   end
 
 end
