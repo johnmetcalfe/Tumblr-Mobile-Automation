@@ -1,5 +1,12 @@
 require 'spec_helper.rb'
 describe "Tumblr Tests" do
+
+  before :all do
+    @email = "seitgrads@mailinator.com"
+    @username = "seitgrads16"
+    @password = "t3stacc0unt16"
+  end
+
   before :each do
     # start an appium session using the desired capabilities set in the spec_helper.rb file
     # launch the appium app
@@ -34,7 +41,7 @@ describe "Tumblr Tests" do
     it "Attempting Login with valid email and invalid password" do
 
       button('SIGN IN').click
-      find_element(class: 'android.widget.EditText').type "john.metcalfe@skybettingandgaming.com"
+      find_element(class: 'android.widget.EditText').type @email
       button('NEXT').click
       find_elements(class: 'android.widget.MultiAutoCompleteTextView').last.type "invalid"
       button('SIGN IN').click
@@ -44,6 +51,16 @@ describe "Tumblr Tests" do
       rescue
         raise InvalidTextNotFound
       end
+
+  end
+
+  context "Logging in" do
+    it "should allow a valid user to login" do
+      find_element(id: 'login_button').click
+      find_element(id: 'email').type @email
+      find_element(id: 'signup_button').click
+      find_element(id: 'password').type "#{@password}\n"
+      expect(find_element(id: 'topnav_dashboard_button').displayed?).to eq true
 
     end
 
