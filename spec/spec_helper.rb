@@ -1,6 +1,7 @@
 require 'rspec'
 require 'pry'
 require 'appium_lib'
+require 'support'
 
 RSpec.configure do|config|
   config.color = true
