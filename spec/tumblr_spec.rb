@@ -95,6 +95,25 @@ describe "Tumblr Tests" do
 
     end
 
+    it "Allow the user to like a post", like: true do
+
+      login
+      find_element(id: 'topnav_explore_button_img_active').click
+      text('Search Tumblr').click
+      find_element(id: 'searchable_action_bar').type "boldlyspookylady\n"
+      find_element(id: 'cancel_button').click
+      find_element(id: 'list_item_blog_avatar').click
+      find_elements(class: 'android.widget.ImageButton')[2].click
+      find_elements(class: 'android.widget.ImageButton')[3].click
+      find_elements(class: 'android.widget.ImageButton')[0].click
+      find_element(id: 'topnav_account_button').click
+      find_element(id: 'account_title_text').click
+      text("Hello World!")
+      find_elements(class: 'android.widget.ImageButton')[2].click
+
+
+    end
+
   end
 
 end
