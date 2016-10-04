@@ -31,4 +31,8 @@ describe "Tumblr Tests" do
       #binding.pry
     end
   end
+
+  context "Logging out" do
+    
+  end
 end
