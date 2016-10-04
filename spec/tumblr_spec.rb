@@ -19,7 +19,7 @@ describe "Tumblr Tests" do
 
   after :all do
     # quit the driver after the tests are done
-    # driver_quit
+    driver_quit
   end
 
   context "Logging in" do
@@ -44,10 +44,10 @@ describe "Tumblr Tests" do
       button('NEXT').click
       begin
         find_element(class: 'android.widget.MultiAutoCompleteTextView')
-
         raise PasswordFieldFound
       rescue Selenium::WebDriver::Error::NoSuchElementError
         # Don't do anyting AKA Pass
+      end
     end
 
     it "doesnt allow the user to login without entering a password" do
@@ -70,6 +70,7 @@ describe "Tumblr Tests" do
 
       rescue
         raise InvalidTextNotFound
+      end
     end
 
   end
