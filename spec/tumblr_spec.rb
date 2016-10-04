@@ -81,7 +81,7 @@ describe "Tumblr Tests" do
       find_element(class: 'android.widget.TextView').click
       text('Settings').click
       sleep (2)
-      swipe start_x: 0, start_y: 0, end_x: 0, end_y: 200, duration: 200
+      scroll_to "Sign out"
       wait_true{text('Sign out')}.click
       text('Yes').click
       expect(wait_true{button("SIGN IN")}.displayed?).to eq true
