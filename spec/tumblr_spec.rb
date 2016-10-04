@@ -33,10 +33,6 @@ describe "Tumblr Tests" do
       login
     end
 
-    it "should allow a logged in user to post a text post" do
-      login
-    end
-
     it "Attempting Login with invalid Email" do
 
       button('SIGN IN').click
@@ -74,4 +70,11 @@ describe "Tumblr Tests" do
     end
 
   end
+
+  context "Posting" do
+    it "should allow a logged in user to post a text post" do
+      login
+    end
+  end
+
 end
