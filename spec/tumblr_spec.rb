@@ -75,12 +75,7 @@ describe "Tumblr Tests" do
 
   context "Logging out" do
     it 'manages to log out successfully', focus: true do
-      button("SIGN IN").click
-      textfield("email").send_keys @email
-      button("Next").click
-      find_elements(class: 'android.widget.MultiAutoCompleteTextView').last.type @password
-      find_element(class: 'android.widget.Button' ).click
-      wait_true{find_element(id: 'topnav_dashboard_button')}
+      login
       find_element(id: 'topnav_account_button').click
       find_element(class: 'android.widget.TextView').click
       text('Settings').click
@@ -97,7 +92,7 @@ describe "Tumblr Tests" do
   end
 
   context "Posting" do
-    it "should allow a logged in user to post a text post" do
+    it "should allow a logged in user to post a text post", text: true do
       login
       find_element(id: 'composer_fab').click
       find_element(id: 'compose_post_text').click
@@ -106,8 +101,7 @@ describe "Tumblr Tests" do
       find_element(id: 'action_button_wrapper').click
       find_element(id: 'topnav_account_button').click
       find_element(id: 'list_item_blog_container').click
-      text(@title)
-      text(@body)
+      verify_and_delete(@body)
     end
 
     it "Should allow the user to reblog a post", reblog: true do
@@ -117,14 +111,12 @@ describe "Tumblr Tests" do
       text('Search Tumblr').click
       find_element(id: 'searchable_action_bar').type "boldlyspookylady\n"
       find_element(id: 'cancel_button').click
-      find_element(id: 'list_item_blog_avatar').click
+      wait_true{find_element(id: 'list_item_blog_avatar')}.click
       find_elements(class: 'android.widget.ImageButton')[1].click
       find_element(id: 'action_button').click
       find_elements(class: 'android.widget.ImageButton')[3].click
       find_elements(class: 'android.widget.ImageButton')[0].click
-      find_element(id: 'topnav_account_button').click
-      find_element(id: 'list_item_blog_only').click
-      text("Hello World!")
+      verify_and_delete("Hello World!")
 
     end
 

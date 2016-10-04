@@ -32,3 +32,12 @@ def login
   # this looks for the 'home' icon in the navbar and checks that it is displayed
   expect(wait_true{find_element(id: 'topnav_dashboard_button')}.displayed?).to eq true
 end
+
+def verify_and_delete(string)
+  find_element(id: 'topnav_account_button').click
+  find_element(id: 'list_item_blog_only').click
+  text(string)
+  swipe start_x: 0, start_y: 0, end_x: 0, end_y: 10, duration: 200
+  find_elements(class: 'android.widget.ImageButton')[2].click
+  find_element(id: 'buttonDefaultPositive').click
+end
