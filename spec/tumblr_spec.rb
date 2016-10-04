@@ -85,6 +85,7 @@ describe "Tumblr Tests" do
       find_element(id: 'topnav_account_button').click
       # find_element(class: 'android.widget.TextView').click
       text('Settings').click
+
       scroll_to "Sign out"
       find("Sign out").click
       text('Yes').click
