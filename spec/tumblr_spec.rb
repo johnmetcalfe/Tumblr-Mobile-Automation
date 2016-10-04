@@ -21,7 +21,7 @@ describe "Tumblr Tests" do
   end
 
   context "Logging in" do
-    it "should allow a valid email address" do
+    it "should allow a valid user to login" do
       find_element(id: 'login_button').click
       find_element(id: 'email').type @email
       find_element(id: 'signup_button').click
