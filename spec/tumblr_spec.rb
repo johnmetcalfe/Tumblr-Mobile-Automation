@@ -27,6 +27,8 @@ describe "Tumblr Tests" do
       button("SIGN IN").click
       textfield("email").send_keys("craig.pearce@skybettingandgaming.com")
       button("Next").click
+      expect(buttons[0].enabled?).to eq false
+      #binding.pry
     end
   end
 end
