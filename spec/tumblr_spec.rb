@@ -9,6 +9,11 @@ describe "Tumblr Tests" do
     @password = "t3stacc0unt16"
     @title = "A test title"
     @body = "A test body"
+
+    def scroll_click identifier
+      scroll_to identifier
+      find(identifier).click
+    end
     @search = "boldlyspookylady\n"
   end
 
@@ -78,17 +83,15 @@ describe "Tumblr Tests" do
     it 'manages to log out successfully', focus: true do
       login
       find_element(id: 'topnav_account_button').click
-      find_element(class: 'android.widget.TextView').click
+      # find_element(class: 'android.widget.TextView').click
       text('Settings').click
-      sleep (2)
+
       scroll_to "Sign out"
-      wait_true{text('Sign out')}.click
+      find("Sign out").click
       text('Yes').click
       expect(wait_true{button("SIGN IN")}.displayed?).to eq true
 
     end
-
-
 
   end
 
@@ -97,11 +100,9 @@ describe "Tumblr Tests" do
       login
       find_element(id: 'composer_fab').click
       find_element(id: 'compose_post_text').click
-      find_element(id: 'title').type @title
-      find_element(id: 'body').type @body
-      find_element(id: 'action_button_wrapper').click
-      find_element(id: 'topnav_account_button').click
-      find_element(id: 'list_item_blog_container').click
+      find('Title').type @title
+      find('Your text here').type @body
+      find('Post').click
       verify_and_delete(@body)
     end
 

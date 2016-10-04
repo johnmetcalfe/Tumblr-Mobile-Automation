@@ -34,7 +34,7 @@ def login
 end
 
 def verify_and_delete(string)
-  find_element(id: 'topnav_account_button').click
+  find('ACCOUNT').click
   find_element(id: 'list_item_blog_only').click
   text(string)
   swipe start_x: 0, start_y: 0, end_x: 0, end_y: 10, duration: 200
